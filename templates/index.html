@@ -1,0 +1,119 @@
+    {% extends 'base.html' %}
+
+    {% block main %}
+    <div id="main">
+      <!-- main-section -->
+      <div class="section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <!-- section-title -->
+            <div class="col-12 text-center">
+              <h2 class="section-title">Find your new best friend</h2>
+            </div>
+            <!-- grid-item-1 -->
+            <div class="col-lg-4 col-sm-6 mb-4 grid-box">
+              <a class="grid-content" href="/search-profiles">
+                <div class="image">
+                  <img src="../static/img/smile.jpg" alt="smile-dog-image" class="img-fluid w-100 d-block">
+                    <div class="inner-textbox-content">
+                      <h3 class="mb-3 mt-0">Search Profiles</h3>
+                      <p class="mb-0">Search animals by type, breed, disposition and date created</p>
+                    </div>
+                </div>
+              </a>
+            </div>
+            <!-- grid-item-2 -->
+            <div class="col-lg-4 col-sm-6 mb-4 grid-box">
+              <a class="grid-content" href="/browse-profiles">
+                <div class="image">
+                  <img src="../static/img/hug.jpg" alt="dog-hug-image" class="img-fluid w-100 d-block">
+                    <div class="inner-textbox-content">
+                      <h3 class="mb-3 mt-0">Browse Profiles</h3>
+                      <p class="mb-0">Browse all listed animal profiles with pictures to find your pet</p>
+                    </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /main-section -->
+
+      <!-- admin-section -->
+      <div class="admin-section" id="adminSection">
+        <div class="container">
+          <div class="d-grid gap-3 d-lg-block">
+            <a href="/create-profiles"><button class="btn btn-admin">CREATE PROFILES</button></a>
+            <a href="/manage-profiles"><button class="btn btn-admin">MANAGE PROFILES</button></a>
+          </div>
+        </div>
+      </div>
+      <!-- /admin-section -->
+
+      <!-- news-section -->
+      <div class="section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12 text-center">
+              <h2 class="section-title">News</h2>
+            </div>
+            <ul class="list-group">
+              {% for story in stories %}
+                <li class="list-group-item hstack">
+
+                  <!-- Carousel -->
+                  <div id="hello{{ story['news_id'] }}" class="carousel slide" data-bs-ride="true" style="max-width: 50%;">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#hello{{ story['news_id'] }}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#hello{{ story['news_id'] }}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#hello{{ story['news_id'] }}" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      {% for image in (story['combined_images']).split(',') %}
+                          {% if image ==  (story['combined_images']).split(',')[0] %}
+                            <div class="carousel-item active">
+                          {% else %}
+                            <div class="carousel-item">
+                          {% endif %}
+                            <img src="../static/img/profile/{{ image }}" class="img-fluid">
+                          </div>
+                      {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#hello{{ story['news_id'] }}" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#hello{{ story['news_id'] }}" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+
+                  <div class="col">
+                    <div class="p-3 vstack">
+                      <h5>{{ story['news_date'] }}</h5>
+                      <p>{{ story['news_description'] }}</p>
+                    </div>
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /news-section -->
+    </div>
+    {%  endblock %}
+{% block js %}
+<script>
+  var adminBlock = $('#adminSection');
+
+  $(window).on('load', function() {
+    if({{ session['is_admin'] }} == 1){
+      adminBlock.show();
+    } else{
+      adminBlock.hide();
+    }
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,355 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+:root {
+  --body-color: #f9f9f9;
+  --text-color: #636363;
+  --text-color-dark: #242738;
+  --white-color: #ffffff;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 17px;
+  color: var(--text-color);
+  background-color: var(--body-color)
+}
+
+p {
+  color: var(--text-color);
+  font-size: 15px
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-color-dark);
+  font-weight: 700;
+  line-height: 1.2
+}
+
+h1,
+.h1 {
+  font-size: 45px
+}
+
+h2,
+.h2 {
+  font-size: 32px
+}
+
+h3,
+.h3 {
+  font-size: 26px
+}
+
+h4,
+.h4 {
+  font-size: 20px
+}
+
+h5,
+.h5 {
+  font-size: 18px
+}
+
+h6,
+.h6 {
+  font-size: 14px
+}
+
+img {
+  vertical-align: middle;
+  border: 0
+}
+
+a,
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: inherit
+}
+
+.section {
+  padding-top: 60px;
+  padding-bottom: 30px
+}
+
+.admin-section {
+  text-align: center;
+}
+
+.section-title {
+  margin-bottom: 40px
+}
+
+.grid-box .image {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-box .image img {
+  position: relative;
+  width: 100%;
+  display: block;
+  transition: all 0.3s;
+}
+
+.grid-box:hover .image img {
+  opacity: 0.7;
+}
+
+.grid-box .image h3 {
+  color: #000;
+}
+
+.inner-textbox-content {
+  position: absolute;
+  bottom: 38px;
+  padding: 20px;
+  background-color:rgba(255, 255, 255, 0.8);
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  left: 0px;
+  right: 0px;
+}
+
+.grid-content {
+  background-color:rgba(255, 255, 255, 0.5)
+}
+
+.btn-admin {
+  border: 1px dotted rgb(40, 65, 133);
+  padding: 1rem 4rem;
+  margin: 0 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 0;
+  transition: .2s ease
+}
+
+.btn-admin a {
+  color: black;
+}
+
+.btn-admin:hover {
+  background-color: #CCC;
+  border: 1px solid #ccc;
+  transition: 0.2s;
+}
+
+/* flash error messages */
+.error {
+  color: red
+}
+
+.success {
+  color: green
+}
+
+.right-align {
+  text-align: right;
+}
+
+#header {
+  text-align: center;
+  font-size: 65px;
+  padding-top: 20px;
+  font-family: 'Merienda';
+  font-weight: 700;
+}
+
+#header a {
+  color: rgb(72, 183, 228);
+}
+
+.icon {
+  width: 3rem;
+  opacity: 0.35;
+  padding-right: 0.3rem;
+}
+
+.nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+
+.nav-bg {
+  background-color: rgb(40, 65, 133);
+  color: white;
+}
+
+.navbar-nav .nav-link.active, .nav-link {
+  color: white;
+}
+
+.navbutton {
+  background-color: rgb(40, 65, 133);
+  color: white;
+  padding: 16px 30px;
+  font-size: 16px;
+  margin: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.navbutton a {
+  color: white;
+}
+
+.navbutton:hover {
+  background-color: rgb(87, 111, 177);
+  color: white;
+}
+
+.footer {
+  position: fixed;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  z-index: 1;
+}
+
+@media(max-width: 599px) {
+  .card {
+    border: 0.40em solid #f8f9fa;
+    padding: 1rem;
+  }
+}
+
+@media(min-width: 600px) {
+  .card {
+    border: 0.40em solid #f8f9fa;
+    padding: 1rem;
+    margin: 3% 30% 0;
+    width: 40%;
+    min-width: 25rem;
+  }
+}
+
+.form-control {
+  background-color: #eee;
+  border: 1.5px solid #333;
+  padding: 15px;
+  margin-bottom: 1.3rem;
+  text-align: left;
+  width: 20rem;
+}
+
+.form-control:focus {
+  color: #000;
+  background-color: #fff;
+  border: 3px solid #333;
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-primary {
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem;
+  background: rgb(72, 183, 228);
+  border: 1px solid rgb(72, 183, 228);
+  font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+  background-color: rgb(148, 215, 241);
+  border: 1px solid rgb(72, 183, 228);
+  transition: 0.3s;
+}
+
+.btn-login {
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem;
+  background: white;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+}
+
+.btn-login:hover {
+  background-color: #aaa;
+  border: 1px solid #ccc;
+  transition: 0.3s;
+}
+
+.login {
+  padding: 0.6rem 0 1rem;
+}
+
+.login a {
+  color: black;
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  border-collapse: collapse;
+  padding: 0.8rem;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.card-profiles {
+  border: 0.40em solid #f8f9fa;
+  padding: 1rem 2rem 2rem 2rem;
+  margin-top: 3%;
+  width: 100%;
+  min-width: 25rem;
+}
+
+.btn-profiles {
+  padding: 0.5rem;
+}
+
+.btn-request {
+  padding: 0.5rem;
+}
+
+.btn-request:hover {
+  background-color: rgb(148, 215, 241);  
+}
+
+.carousel-caption {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .carousel-control .icon-prev, .carousel-control .icon-next, .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right {
+    font-size: 24px;
+    line-height: 24px;
+    margin-top: -12px;
+  }
+}
+
+.form-select {
+  border: solid 1pt rgb(168, 168, 168);
+}
+
+.admin-section {
+  display: none
+}
+
+#slide {
+  width: auto;
+  height: 750px;
+  overflow-x: auto;
+  overflow-y: auto;
+  white-space: nowrap;
+}

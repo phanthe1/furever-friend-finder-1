@@ -1,0 +1,229 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div>
+        <!-- flash messages -->
+        <div class="card">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+              <div class="{{ category }} text-center">{{ message }}</div>
+            {% endfor %}
+          {% endwith %} 
+          <br>
+          <h3 class="card-title text-center">
+            {% if data['profile'] is defined %}
+              EDIT PROFILE
+            {% else %}
+              CREATE PROFILE
+            {% endif %}
+          </h3>
+          <div class="form-group">
+            {% if data['profile'] is defined %}
+              <form id="updateProfile" enctype="multipart/form-data" id="updateForm">
+            {% else %}
+              <form id="insertPerson" action="/profiles" method="post" enctype="multipart/form-data">
+            {% endif %}
+              <div class="form-label">
+                <label for="type">Name:</label>
+                <input
+                  type="text"
+                  class="form-control "
+                  name="name"
+                  required
+                  {% if data["profile"] is defined %}
+                        value="{{ data["profile"][1] }}"
+                  {% endif %}
+                />
+              </div>
+              <div class="form-group">
+                <label for="type">Type:</label>
+                <select class="form-select" name="type" id="type">
+                  <option value="Cat"
+                    {% if data["profile"] is defined and data["profile"][2] == "Cat" %}
+                        selected="true"
+                    {% endif %}>Cat</option>
+                  <option value="Dog"
+                    {% if data["profile"] is defined and data["profile"][2] == "Dog" %}
+                        selected="true"
+                    {% endif %}>Dog</option>
+                  <option value="Other"
+                    {% if data["profile"] is defined and data["profile"][2] == "Other" %}
+                        selected="true"
+                    {% endif %}>Other</option>
+                </select>
+              </div> <br>
+              <div class="form-group">
+                <label for="breed">Breed:</label>
+                <select class="form-select" name="breed" id="breed">
+                </select>
+              </div>
+              <br>
+              <label for="type">Disposition:</label>
+                {% for dispo in data['dispositions'] %}
+                   <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{ dispo[0] }}" id="disposition" name="disposition{{ dispo[0] }}"
+                      {% if data['profile_dispositions'] is defined %}
+                            {% for pd in data['profile_dispositions'] %}
+                                {% if pd[0] == dispo[0] %}
+                                    checked
+                                {% endif %}
+                            {% endfor %}
+                      {% endif %}
+                    >
+                    <label class="form-check-label" for="disposition">
+                      {{ dispo[1] }}
+                    </label>
+                  </div>
+                {% endfor %}
+               <br>
+              <div class="form-group">
+                <label for="type">Availability:</label>
+                  <select class="form-select" name="availability">
+                    <option value="Not Available"
+                      {% if data['profile'] is defined and data['profile'][4] == 'Not Available' %}
+                          selected="true"
+                      {% endif %}
+                    >Not Available</option>
+                    <option value="Available"
+                      {% if data['profile'] is defined and data['profile'][4] == 'Available' %}
+                          selected="true"
+                      {% endif %}
+                    >Available</option>
+                    <option value="Pending"
+                      {% if data['profile'] is defined and data['profile'][4] == 'Pending' %}
+                          selected="true"
+                      {% endif %}
+                    >Pending</option>
+                    <option value="Adopted"
+                      {% if data['profile'] is defined and data['profile'][4] == 'Adopted' %}
+                          selected="true"
+                      {% endif %}
+                    >Adopted</option>
+                  </select>
+              </div> <br>
+              <div class="form-label">
+                <label for="type">News:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="news"
+                  required
+                  {% if data["profile"] is defined %}
+                        value="{{ data["profile"][5] }}"
+                  {% endif %}
+                />
+              </div>
+              <div class="form-group">
+                <label for="type">Description:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="description"
+                  required
+                  {% if data["profile"] is defined %}
+                        value="{{ data["profile"][6] }}"
+                  {% endif %}
+                />
+              </div>
+              {% if data["images"] is defined %}
+                <div>
+                  <input type="file" class="custom-file-input" name="picture1"
+                  >
+                  <img src="../static/img/profile/{{ data['images'][0][2] }}" class="img-fluid w-100 d-block"/>
+                </div>
+                <br>
+                <div>
+                  <input type="file" class="custom-file-input" name="picture2"
+                  >
+                  <img src="../static/img/profile/{{ data['images'][1][2] }}" class="img-fluid w-100 d-block"/>
+                </div>
+                <br>
+                <div>
+                  <input type="file" class="custom-file-input" name="picture3"
+                  >
+                  <img src="../static/img/profile/{{ data['images'][2][2] }}" class="img-fluid w-100 d-block"/>
+                </div>
+                <br>
+              {% else %}
+              <div class="custom-file">
+                <label class="custom-file-label">Please Upload 3 Pictures</label>
+                <br>
+                <input type="file" class="custom-file-input" name="pictures[]" multiple
+                       {% if data["profile"] is not defined %}
+                       required
+                       {% endif %}
+                >
+              </div>
+              <br>
+              {% endif %}
+              <div class="d-flex flex-row align-items-center justify-content-center">
+                <input class="btn btn-primary" type="submit"
+                       {% if data["profile"] is defined %}
+                          value="Edit"
+                       {% else %}
+                          value="Create"
+                       {% endif %}
+                       name="Add_Profile">
+                <input class="btn btn-primary" type="button" onclick="window.location='/manage-profiles'" value="Cancel" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{%  endblock %}
+{% block js %}
+  <script>
+  $(window).on('load', function() {
+
+      let items = {{ data['animals'] | tojson }};
+
+      {% if data['profile'] is defined %}
+        let profile = {{ data['profile'] | tojson }};
+      {% endif %}
+
+      $el = $('#breed');
+      $el.empty();
+      $.each(items, function (index, item) {
+          if (item[1] === $("#type").val()) {
+              $el.append($("<option></option>")
+                  .attr("value", item[2]).text(item[2]));
+          }
+      });
+
+      if(typeof profile !== "undefined")
+          $el.val(profile[3]);
+
+      $("#type").change(function () {
+          $el = $('#breed');
+          $el.empty();
+          $.each(items, function (index, item) {
+              if (item[1] === $("#type").val()) {
+                  $el.append($("<option></option>")
+                      .attr("value", item[2]).text(item[2]));
+              }
+          });
+      });
+
+      {% if data['profile'] is defined %}
+          $('#updateProfile').submit(function (event) {
+              event.preventDefault();
+              $.ajax({
+                  url: '/profiles/{{ data['profile'][0] | tojson }}',
+                  dataType: 'json',
+                  type: 'PUT',
+                  data: new FormData(this),
+                  processData: false,
+                  contentType: false,
+                  success: function(data, status, xHR) {
+                      window.location = '/manage-profiles'
+                  }
+              })
+          });
+      {% endif %}
+  });
+  </script>
+{% endblock %}
